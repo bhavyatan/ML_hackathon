@@ -12,11 +12,7 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model() -> tf.keras.Model:
-    """Load the pre-trained seizure detection model.
-    
-    Returns:
-        Loaded TensorFlow model or None if loading fails
-    """
+   
     try:
         model = tf.keras.models.load_model('CHB_MIT_sz_detec_demo.h5')
         return model
@@ -25,15 +21,8 @@ def load_model() -> tf.keras.Model:
         return None
 
 def preprocess_eeg(data: np.ndarray, sampling_rate: int = 256) -> np.ndarray:
-    """Preprocess EEG data with bandpass filtering and normalization.
+  
     
-    Args:
-        data: Raw EEG data array
-        sampling_rate: Sampling frequency in Hz
-        
-    Returns:
-        Preprocessed EEG data array
-    """
     if not isinstance(data, np.ndarray):
         raise TypeError("Input data must be a numpy array")
     if not isinstance(sampling_rate, (int, float)):
@@ -60,7 +49,7 @@ sampling_rate = st.sidebar.number_input("Sampling Rate (Hz)", min_value=100, max
 
 model = load_model()
 
-uploaded_file = st.file_uploader("Upload EEG Data", type=['csv', 'txt', 'npy', 'edf'])
+uploaded_file = st.file_uploader("Upload EEG Data", type=['edf'])
 
 if uploaded_file is not None:
     try:
